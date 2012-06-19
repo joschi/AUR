@@ -1,0 +1,19 @@
+# Maintainer: Jochen Schalanda <jochen+aur AT schalanda.aname>
+pkgname=ruby-childprocess
+pkgver=0.3.2
+_realname='childprocess'
+pkgrel=2
+pkgdesc='Childprocess: A simple and reliable solution for controlling external programs running in the background'
+arch=(any)
+url='http://gemcutter.org/gems/childprocess'
+license=("GPL")
+depends=('ruby' 'ruby-ffi')
+source=(http://gems.rubyforge.org/gems/childprocess-$pkgver.gem)
+noextract=(childprocess-$pkgver.gem)
+
+build() {
+  cd $srcdir
+  local _gemdir="$(ruby -rubygems -e'puts Gem.default_dir')"
+  gem install --no-user-install --ignore-dependencies -i "$pkgdir$_gemdir" ${_realname}-$pkgver.gem
+}
+md5sums=('bafac69dceff1d453bb54ba88eba7c5d')

@@ -1,0 +1,24 @@
+# Maintainer: Jochen Schalanda <jochen+aur@schalanda.name>
+_gemname=fpm
+pkgname=ruby-$_gemname
+pkgver=0.4.10
+pkgrel=1
+pkgdesc="Convert directories, RPMs, Python eggs, Rubygems, and more to RPMs, DEBs, Solaris packages and more."
+arch=(any)
+url="https://github.com/jordansissel/fpm"
+license=('MIT')
+depends=('ruby' 'ruby-backports=2.3.0' 'ruby-json' 'ruby-arr-pm' 'ruby-clamp=0.3.1' 'ruby-cabin')
+makedepends=('rubygems')
+source=(http://gems.rubyforge.org/gems/$_gemname-$pkgver.gem)
+noextract=($_gemname-$pkgver.gem)
+
+package() {
+  cd "$srcdir"
+  # _gemdir is defined inside package() because if ruby[gems] is not installed on
+  # the system, makepkg will exit with an error when sourcing the PKGBUILD.
+  local _gemdir="$(ruby -rubygems -e'puts Gem.default_dir')"
+
+  gem install --no-user-install --ignore-dependencies -i "$pkgdir$_gemdir" \
+    -n "$pkgdir/usr/bin" "$_gemname-$pkgver.gem"
+}
+md5sums=('3fdab04f1dc0ecd2b4fdaa7daae45454')

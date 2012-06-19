@@ -1,0 +1,16 @@
+pkgname=pbuilder
+pkgver=0.210
+pkgrel=1
+pkgdesc='Personal package builder for Debian packages'
+arch=(i686 x86_64)
+url='ttp://anonscm.debian.org/gitweb/?p=pbuilder/pbuilder.git'
+license=('GPL')
+depends=('debootstrap' 'dpkg' 'coreutils' 'wget' 'debianutils' 'perl-timedate')
+conflicts=('pbuilder-ubuntu')
+source=(http://ftp.debian.org/debian/pool/main/p/pbuilder/pbuilder_${pkgver}_all.deb)
+md5sums=('65be8d6d4dbb5de987bda8c91680898c')
+
+build() {
+  ar x pbuilder_${pkgver}_all.deb
+  tar xzf data.tar.gz -C $startdir/pkg
+}
