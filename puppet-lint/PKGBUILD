@@ -1,7 +1,7 @@
 # Maintainer: Jochen Schalanda <jochen+aur AT schalanda.aname>
 pkgname=puppet-lint
-pkgver=0.1.12
-pkgrel=2
+pkgver=0.1.13
+pkgrel=1
 pkgdesc='Checks your Puppet manifests against the Puppetlabs style guide and alerts you to any discrepancies.'
 arch=(any)
 url='https://github.com/rodjek/puppet-lint/'
@@ -16,4 +16,4 @@ build() {
   gem install --no-user-install --ignore-dependencies \
     -i "$pkgdir$_gemdir" ${pkgname}-$pkgver.gem
 }
-md5sums=('4dd542e2093b6dd06cfec7a69930913c')
+md5sums=('307f0fdae79d19393447557622c3df00')
