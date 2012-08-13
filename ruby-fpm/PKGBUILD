@@ -1,7 +1,7 @@
 # Maintainer: Jochen Schalanda <jochen+aur@schalanda.name>
 _gemname=fpm
 pkgname=ruby-$_gemname
-pkgver=0.4.11
+pkgver=0.4.12
 pkgrel=1
 pkgdesc="Convert directories, RPMs, Python eggs, Rubygems, and more to RPMs, DEBs, Solaris packages and more."
 arch=(any)
@@ -21,4 +21,4 @@ package() {
   gem install --no-user-install --ignore-dependencies -i "$pkgdir$_gemdir" \
     -n "$pkgdir/usr/bin" "$_gemname-$pkgver.gem"
 }
-md5sums=('1c2a288322aa742661c8b004f5be51de')
+md5sums=('dbd441cdd93a5a8e411607ac9f512721')
