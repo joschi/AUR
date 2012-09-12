@@ -1,7 +1,7 @@
 # Maintainer: Chris Molozian (novabyte) <chris DOT molozian AT gmail DOT com>
 # Contributor: Sanjuro Makabe (itti) <vuck AT gmx DOT de>
 pkgname=gradle
-pkgver=1.1
+pkgver=1.2
 pkgrel=1
 pkgdesc="A powerful build system for the JVM"
 arch=('any')
@@ -37,5 +37,5 @@ package(){
     # link gradle script to /usr/bin
     ln -s /usr/share/java/${pkgname}/bin/${pkgname} ${pkgdir}/usr/bin
 }
-md5sums=('21f623813a14e3a3784d7e8b19a538b9'
+md5sums=('92ba58e05f0c0a6ce665d345afe09afe'
          'd73a375d2796dfe4ec170f2f5af3a0c9')
