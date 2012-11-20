@@ -1,78 +1,122 @@
 #!/bin/sh
-# vim:set ts=2 sw=2 et:
-
-. /etc/rc.conf
-. /etc/rc.d/functions
-
-RUBYLIB=/usr/lib/site_ruby/1.9.1:$RUBYLIB
-export RUBYLIB
+#
+# mcollective   Application Server for STOMP based agents
+#
+# chkconfig:    345 24 76
+#
+# description:  mcollective lets you build powerful Stomp compatible middleware clients in ruby without having to worry too
+#               much about all the setup and management of a Stomp connection, it also provides stats, logging and so forth
+#               as a bonus.
+#
+### BEGIN INIT INFO
+# Provides:          mcollective
+# Required-Start:    $remote_fs
+# Required-Stop:     $remote_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start daemon at boot time
+# Description:       Enable service provided by daemon.
+### END INIT INFO
 
 mcollectived="/usr/sbin/mcollectived"
+
+# Lockfile
+if [ -d /var/lock/subsys ]; then
+    # RedHat/CentOS/etc who use subsys
+    lock="/var/lock/subsys/mcollective"
+else
+    # The rest of them
+    lock="/var/lock/mcollective"
+fi
+
+
+# PID directory
 pidfile="/var/run/mcollectived.pid"
-lockfile="/var/lock/mcollective"
+
+# Source function library.
+. /lib/lsb/init-functions
 
 # Check that binary exists
-if ! [ -f $mcollectived ]; then
-  echo "mcollectived binary not found"
-  exit 0
+if ! [ -f $mcollectived ]
+then
+    echo "mcollectived binary not found"
+    exit 0
 fi
-
-# Determine if we can use the -p option to daemon, killproc, and status.
-if status | grep -q -- '-p' 2>/dev/null; then
-  daemonopts="--pidfile $pidfile"
-  pidopts="-p $pidfile"
-fi
-
-start() {
-  stat_busy "Starting Mcollective Daemon"
-  ${mcollectived} --pid=${pidfile} --config="/etc/mcollective/server.cfg"
-  RETVAL=$?
-  if [ $RETVAL -eq 0 ]; then
-    touch ${lockfile}
-    stat_done
-  else
-    stat_fail
-  fi
-  return $RETVAL
-}
-
-stop() {
-  stat_busy "Shutting down Mcollective"
-  if [ -f ${pidfile} ]; then
-    kill $(cat ${pidfile})
-    RETVAL=$?
-  else
-    RETVAL=1
-  fi
-  
-  if [ $RETVAL = 0 ]; then
-    rm -f ${lockfile} ${pidfile}
-    stat_done
-  else
-    stat_fail
-  fi
-  return $RETVAL
-}
-
-restart() {
-  stop
-  start
-}
 
 # See how we were called.
 case "$1" in
     start)
-        start
+        echo -n "Starting mcollective: "
+
+        if [ -f ${lock} ]; then
+            # we were not shut down correctly
+            if [ -s ${pidfile} ]; then
+                kill `cat ${pidfile}` >/dev/null 2>&1
+            fi
+            rm -f ${pidfile}
+
+            rm -f ${lock}
+            sleep 2
+        fi
+
+        rm -f ${pidfile}
+
+        ${mcollectived} --pid=${pidfile} --config="/etc/mcollective/server.cfg"
+        if [ $? = 0 ]; then
+            log_success_msg
+            touch $lock
+            exit 0
+        else
+            log_failure_msg
+            exit 1
+        fi
         ;;
     stop)
-        stop
+        echo -n "Shutting down mcollective: "
+
+        if [ -s ${pidfile} ]; then
+            kill `cat ${pidfile}` >/dev/null 2>&1
+        fi
+        rm -f ${pidfile}
+
+        log_success_msg
+        rm -f $lock
         ;;
     restart)
-        restart
+        $0 stop
+        sleep 2
+        $0 start
+        ;;
+    condrestart)
+        if [ -f $lock ]; then
+            $0 stop
+            # avoid race
+            sleep 2
+            $0 start
+        fi
+        ;;
+    status)
+        if [ -f ${lock} ]; then
+            if [ -s ${pidfile} ]; then
+                if [ -e /proc/`cat ${pidfile}` ]; then
+                    echo "mcollectived (`cat ${pidfile}`) is running"
+                    exit 0
+                else
+                    echo "mcollectived (`cat ${pidfile}`) is NOT running"
+                    exit 1
+                fi
+            fi
+        else
+            echo "mcollectived: service not started"
+            exit 1
+        fi
+        ;;
+    force-reload)
+        echo "not implemented"
         ;;
     *)
         echo "Usage: mcollectived {start|stop|restart|condrestart|status}"
-        RETVAL=2
+        exit 1
         ;;
 esac
-exit $RETVAL
+exit 0
