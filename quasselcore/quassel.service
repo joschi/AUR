@@ -6,7 +6,7 @@ After=network.target
 Type=simple
 User=quassel
 Group=quassel
-ExecStart=/usr/bin/quasselcore --configdir=/var/lib/quassel --listen=0.0.0.0
+ExecStart=/usr/bin/quasselcore --configdir=/var/lib/quassel --listen=127.0.0.1
 
 [Install]
 WantedBy=multi-user.target
