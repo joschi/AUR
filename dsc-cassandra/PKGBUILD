@@ -3,7 +3,7 @@
 # Contributor: Konstantin Nikiforov <helllamer@gmail.com> 
 # Thanks to Alper Kanat <alperkanat@raptiye.org> for cassandra rc.d script. 
 pkgname=dsc-cassandra
-pkgver=1.1.6
+pkgver=1.1.7
 pkgrel=1
 pkgdesc='DataStax Community Edition distribution of Apache Cassandra'
 arch=('any')
@@ -34,7 +34,7 @@ package() {
 
 	sed -i 's_`dirname $0`/.._/usr/share/cassandra_' bin/cassandra.in.sh
 
-	cp -a pylib/{cql,cqlshlib} ${pkgdir}/usr/lib/python2.7/site-packages
+	cp -a pylib/cqlshlib ${pkgdir}/usr/lib/python2.7/site-packages
 	cp -a {lib,interface} ${pkgdir}/usr/share/cassandra/
 	cp -a conf ${pkgdir}/etc/cassandra/
 
@@ -60,7 +60,7 @@ package() {
 	install -D -m755 ${startdir}/cassandra.conf ${pkgdir}/etc/conf.d/cassandra
 	install -D -m755 ${startdir}/cassandra ${pkgdir}/etc/rc.d/cassandra
 }
-md5sums=('c6cd6d5c4e9474cd2583f2c0191ed1ee'
+md5sums=('940f22b131c245b3b700a21336ff007a'
          '8dee56fb202728dd9d1e3c055b39fd4e'
          '184b5f3eb73574ff1dfa24ef7400c890'
          '84cd5c24d6222b89b2a6ca91e5770f7c')
