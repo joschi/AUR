@@ -2,29 +2,28 @@
 # Contributor: Hyacinthe Cartiaux <hyacinthe.cartiaux(at)free.fr>
 # Contributor: Daenyth <Daenyth+Arch AT gmail DOT com>
 # Contributor: Jochen Schalanda <jochen+aur@schalanda.name>
-
-pkgname=ruby-json
+_gemname=json
+pkgname=ruby-$_gemname
 pkgver=1.7.7
-pkgrel=1
-pkgdesc="JSON implementation as a Ruby extension in C"
+pkgrel=2
+pkgdesc='JSON implementation as a Ruby extension in C'
 arch=('x86_64' 'i686')
 url="http://flori.github.com/json/"
 license=('GPL')
 depends=('ruby')
 makedepends=('rubygems')
-optdepends=('jruby' 'java-environment')
-source=("http://rubygems.org/downloads/json-$pkgver.gem")
-noextract=("json-$pkgver.gem")
+source=(http://gems.rubyforge.org/gems/$_gemname-$pkgver.gem)
+noextract=($_gemname-$pkgver.gem)
 md5sums=('9084ee2e853f55d956d043cba46e25fc')
 
-build() {
-  gem install -i "$pkgdir$(ruby -rubygems -e'puts Gem.default_dir')" \
-    "json-$pkgver.gem" --no-user-install
-}
-
 package() {
-  # Removing files with references to $pkgdir
-  find "$pkgdir" -depth -type f -name "Makefile*" -exec rm {} \;
+  cd "$srcdir"
+  # _gemdir is defined inside package() because if ruby[gems] is not installed on
+  # the system, makepkg will exit with an error when sourcing the PKGBUILD.
+  local _gemdir="$(ruby -rubygems -e'puts Gem.default_dir')"
+
+  gem install --no-user-install --ignore-dependencies -i "$pkgdir$_gemdir" \
+    -n "$pkgdir/usr/bin" "$_gemname-$pkgver.gem"
 }
 
 # vim:set ts=2 sw=2 et:
