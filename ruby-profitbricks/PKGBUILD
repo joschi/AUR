@@ -1,7 +1,7 @@
 # Maintainer: Jochen Schalanda <jochen+aur@schalanda.name>
 _gemname=profitbricks
 pkgname=ruby-$_gemname
-pkgver=0.9.8
+pkgver=0.9.9
 pkgrel=1
 pkgdesc='A Ruby client for the ProfitBricks API.'
 arch=(any)
@@ -21,4 +21,4 @@ package() {
   gem install --no-user-install --ignore-dependencies -i "$pkgdir$_gemdir" \
     -n "$pkgdir/usr/bin" "$_gemname-$pkgver.gem"
 }
-md5sums=('3c47f6c9cb5df536e909f08e72bf5831')
+md5sums=('e21da4087a88b608291866bfacf3f676')
