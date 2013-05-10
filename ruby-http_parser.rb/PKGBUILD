@@ -1,0 +1,24 @@
+# Maintainer: Jochen Schalanda <jochen+aur@schalanda.name>
+_gemname=http_parser.rb
+pkgname=ruby-$_gemname
+pkgver=0.5.3
+pkgrel=1
+pkgdesc='Simple callback-based HTTP request/response parser.'
+arch=(any)
+url='http://github.com/tmm1/http_parser.rb'
+license=('MIT')
+depends=('ruby' 'ruby-rake-compiler' 'ruby-rspec' 'ruby-yajl-ruby')
+makedepends=('rubygems')
+source=(http://gems.rubyforge.org/gems/$_gemname-$pkgver.gem)
+noextract=($_gemname-$pkgver.gem)
+
+package() {
+  cd "$srcdir"
+  # _gemdir is defined inside package() because if ruby[gems] is not installed on
+  # the system, makepkg will exit with an error when sourcing the PKGBUILD.
+  local _gemdir="$(ruby -rubygems -e'puts Gem.default_dir')"
+
+  gem install --no-user-install --ignore-dependencies -i "$pkgdir$_gemdir" \
+    -n "$pkgdir/usr/bin" "$_gemname-$pkgver.gem"
+}
+md5sums=('7782c17d0c984f33bd82acbe9bcbaec8')
