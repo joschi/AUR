@@ -1,35 +1,31 @@
 # Contributor: Leo von Klenze <leo.vonklenze@tngtech.com> 
 pkgname="atlassian-plugin-sdk"
-pkgver=4.2.0
+pkgver=4.2.4
 pkgrel=1
 pkgdesc="Atlassian Plugin SDK for Developing Plugins for Atlassian Products"
 arch=('i686' 'x86_64')
 url="http://confluence.atlassian.com/x/rwWzDQ"
 license=('Apache License 2.0')
-source=("https://maven.atlassian.com/public/com/atlassian/amps/atlassian-plugin-sdk/$pkgver/atlassian-plugin-sdk-$pkgver.tar.gz")
-md5sums=('a483509107035e60d2d5ab1ce92bd598')
-depends=(sun-java6)
+source=("https://maven.atlassian.com/public/com/atlassian/amps/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
+md5sums=('edcc168929f444f6d82985038e21a598')
+depends=(java-environment)
 
-build()
+package()
 {
-	cd "$pkgdir"
-	mkdir -p opt/atlassian/plugin-sdk
+	mkdir -p $pkgdir/opt/$pkgname
 
-	cp -r "$srcdir"/atlassian-plugin-sdk-$pkgver/* opt/atlassian/plugin-sdk
+	cp -r "$srcdir"/$pkgname-$pkgver/* $pkgdir/opt/$pkgname
 
-	# remove executable flag from .bat in bin
-	chmod -x opt/atlassian/plugin-sdk/apache-maven/bin/*.bat
+	# Set sane file permissions
+	find "${pkgdir}" -type f -print0 | xargs -0 chmod 0644
 
-	# add executable flag for every user
-	chmod -R +X opt/atlassian/plugin-sdk
-
-    # add sun jasva path settings to atlas files
-    find opt/atlassian/plugin-sdk -type f -executable -exec sed -ie 's/# Execute Maven #/# Execute Maven #\nsource \/opt\/sun-java6\/envsetup.sh/g' {} \;
+	# Add executable flag to scripts
+	chmod +x $pkgdir/opt/$pkgname/bin/*
+	chmod +x $pkgdir/opt/$pkgname/apache-maven/bin/{mvn,mvnDebug}
 
 	# update PATH
-	mkdir -p etc/profile.d
-	echo 'export PATH=$PATH:/opt/atlassian/plugin-sdk/bin' > etc/profile.d/atlassian-plugin-sdk.sh
-	echo 'setenv PATH ${PATH}:/opt/atlassian/plugin-sdk/bin' > etc/profile.d/atlassian-plugin-sdk.csh
-	chmod +x etc/profile.d/*
+	mkdir -p $pkgdir/etc/profile.d
+	echo "export PATH=\"\$PATH:/opt/$pkgname/bin\"" > $pkgdir/etc/profile.d/atlassian-plugin-sdk.sh
+	echo "setenv PATH \${PATH}:/opt/$pkgdir/bin" > $pkgdir/etc/profile.d/atlassian-plugin-sdk.csh
+	chmod +x $pkgdir/etc/profile.d/*
 }
-
