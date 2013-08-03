@@ -2,14 +2,14 @@
 _gemname=stomp
 pkgname=ruby-$_gemname
 pkgver=1.2.7
-pkgrel=1
+pkgrel=2
 pkgdesc="Ruby client for the Stomp messaging protocol"
 arch=(any)
 url="http://stomp.codehaus.org/"
 license=("GPL")
 depends=('ruby')
 makedepends=('rubygems')
-source=(http://gems.rubyforge.org/gems/$_gemname-$pkgver.gem)
+source=(https://rubygems.org/downloads/$_gemname-$pkgver.gem)
 noextract=($_gemname-$pkgver.gem)
 
 package() {

@@ -2,14 +2,14 @@
 _gemname=http_parser.rb
 pkgname=ruby-$_gemname
 pkgver=0.5.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Simple callback-based HTTP request/response parser.'
 arch=(any)
 url='http://github.com/tmm1/http_parser.rb'
 license=('MIT')
 depends=('ruby' 'ruby-rake-compiler' 'ruby-rspec' 'ruby-yajl-ruby')
 makedepends=('rubygems')
-source=(http://gems.rubyforge.org/gems/$_gemname-$pkgver.gem)
+source=(https://rubygems.org/downloads/$_gemname-$pkgver.gem)
 noextract=($_gemname-$pkgver.gem)
 
 package() {
