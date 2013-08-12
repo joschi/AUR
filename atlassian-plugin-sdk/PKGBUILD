@@ -1,13 +1,14 @@
 # Contributor: Leo von Klenze <leo.vonklenze@tngtech.com> 
+# Contributor: Jochen Schalanda <jochen+aur@schalanda.name> 
 pkgname="atlassian-plugin-sdk"
-pkgver=4.2.4
+pkgver=4.2.5
 pkgrel=1
 pkgdesc="Atlassian Plugin SDK for Developing Plugins for Atlassian Products"
 arch=('i686' 'x86_64')
-url="http://confluence.atlassian.com/x/rwWzDQ"
+url="https://developer.atlassian.com/display/DOCS/Getting+Started"
 license=('Apache License 2.0')
 source=("https://maven.atlassian.com/public/com/atlassian/amps/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-md5sums=('edcc168929f444f6d82985038e21a598')
+md5sums=('b8cf200dce9ca4d145709894e87a03b7')
 depends=(java-environment)
 
 package()
