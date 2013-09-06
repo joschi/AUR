@@ -8,7 +8,7 @@
 # If you have problems with gpg, you can remove check() function, and all will be ok.
 
 pkgname=cassandra
-pkgver=1.2.2
+pkgver=1.2.8
 pkgrel=1
 pkgdesc='NoSQL database (precompiled version)'
 arch=('any')
@@ -25,13 +25,25 @@ backup=(etc/cassandra/cassandra-env.sh
         etc/cassandra/commitlog_archiving.properties
         etc/cassandra/log4j-server.properties
         etc/cassandra/log4j-tools.properties)
-_url_tgz="http://apache.mirror.anlx.net/${pkgname}/${pkgver}/apache-${pkgname}-${pkgver}-bin.tar.gz"
+_url_tgz="http://archive.apache.org/dist/${pkgname}/${pkgver}/apache-${pkgname}-${pkgver}-bin.tar.gz"
 source=(${_url_tgz}
-        cassandra.rc.d
-        cassandra.service.systemd)
-md5sums=('3ddca9d7eb1129b3975ad7ad1fa8e891'
-         '19d01c3e8c967fa4fc4456f53b36f9fd'
-         'aa03bc87b3d139f8e5e747661e7588f2')
+        cassandra.service.systemd
+        01_fix_cassandra_home_path.patch
+        02_fix_jvm_opts_for_jre7.patch)
+sha256sums=('664198714f31089e2b4cb7b3e0c329483a5e1d2d82563bf0e4fd345350e8f980'
+            'dd25888b72a0b493c1710720cdb31a0c5582cc4bd370a969c97a2808589f30a5'
+            'bbb5dcc19cac4e19c506210da901280c3063a6a241480bf12bc874e6a5c02657'
+            'd915afca16d75abd865a18a66189a2ec3862ea605cb3eeec680731c80d926c82')
+
+build() {
+  cd ${srcdir}/apache-cassandra-${pkgver}
+
+  # https://issues.apache.org/jira/browse/CASSANDRA-4275
+  for p in 01_fix_cassandra_home_path 02_fix_jvm_opts_for_jre7;
+  do
+    patch -p0 < ${srcdir}/${p}.patch
+  done
+}
 
 ## to check gpg signature
 check() {
@@ -63,7 +75,6 @@ package() {
       ln -s /usr/share/cassandra/${f} ${pkgdir}/usr/${f}
     fi
   done
-  sed -i 's_`dirname $0`/.._/usr/share/cassandra_' bin/cassandra.in.sh
   cp -a bin/cassandra.in.sh ${pkgdir}/usr/share/cassandra/
 
   cp -a lib/* ${pkgdir}/usr/share/java/cassandra/
@@ -72,7 +83,6 @@ package() {
   cp -a conf/* ${pkgdir}/etc/cassandra/
   ln -s /etc/cassandra ${pkgdir}/usr/share/cassandra/conf
 
-  install -D -m755 ${srcdir}/cassandra.rc.d ${pkgdir}/etc/rc.d/cassandra
   install -Dm644 ${srcdir}/cassandra.service.systemd \
                  ${pkgdir}/lib/systemd/system/cassandra.service
 
