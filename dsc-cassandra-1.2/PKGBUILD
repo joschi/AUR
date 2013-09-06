@@ -1,0 +1,82 @@
+# Maintainer: Jochen Schalanda <jochen+aur@schalanda.name>
+# Contributor: Thomas Dziedzic <gostrc at gmail>
+# Contributor: Konstantin Nikiforov <helllamer@gmail.com> 
+_pkgname=dsc-cassandra
+pkgname=${_pkgname}-1.2
+pkgver=1.2.9
+pkgrel=1
+pkgdesc='DataStax Community Edition 1.2 distribution of Apache Cassandra'
+arch=('any')
+url='http://www.datastax.com/'
+license=('Apache')
+depends=('java-runtime' 'python2')
+provides=('cassandra')
+makedepends=('gnupg')
+source=("http://downloads.datastax.com/community/${_pkgname}-${pkgver}-bin.tar.gz"
+	'cassandra.conf'
+	'cassandra.service'
+	"${_pkgname}.install"
+        '01_fix_cassandra_home_path.patch'
+	'02_fix_jvm_opts_for_jre7.patch')
+install="${_pkgname}.install"
+backup=(
+	'etc/cassandra/cassandra-env.sh'
+	'etc/cassandra/cassandra-topology.properties'
+	'etc/cassandra/cassandra.yaml'
+	'etc/cassandra/commitlog_archiving.properties'
+	'etc/cassandra/log4j-server.properties'
+	'etc/cassandra/log4j-tools.properties')
+
+build() {
+	cd ${srcdir}/${_pkgname}-${pkgver}
+
+	# https://issues.apache.org/jira/browse/CASSANDRA-4275
+	for p in 01_fix_cassandra_home_path 02_fix_jvm_opts_for_jre7;
+	do
+		patch -p0 < ${srcdir}/${p}.patch
+	done
+}
+
+package() {
+	cd $srcdir/${_pkgname}-${pkgver}
+
+	mkdir -p ${pkgdir}/etc
+	mkdir -p ${pkgdir}/usr/bin
+	mkdir -p ${pkgdir}/usr/share/cassandra
+	mkdir -p ${pkgdir}/usr/share/java/cassandra
+	mkdir -p ${pkgdir}/usr/lib/python2.7/site-packages
+
+	cp -a pylib/cqlshlib ${pkgdir}/usr/lib/python2.7/site-packages
+	cp -a {lib,interface} ${pkgdir}/usr/share/cassandra/
+	cp -a conf ${pkgdir}/etc/cassandra/
+	ln -s /etc/cassandra ${pkgdir}/usr/share/cassandra/conf
+
+	cd "${srcdir}/${_pkgname}-${pkgver}/bin"
+
+	install \
+		cassandra \
+		cassandra-cli \
+		cqlsh \
+		json2sstable \
+		nodetool \
+		sstable2json \
+		sstablekeys \
+		sstableloader \
+		sstablescrub \
+		stop-server \
+		${pkgdir}/usr/bin/
+
+	install \
+		cassandra.in.sh \
+		${pkgdir}/usr/share/cassandra/
+
+	install -D -m755 ${startdir}/cassandra.conf ${pkgdir}/etc/conf.d/cassandra
+	install -D -m644 ${srcdir}/cassandra.service \
+                 ${pkgdir}/lib/systemd/system/cassandra.service
+}
+md5sums=('c0616a437a68327352cc257cba22b797'
+         '184b5f3eb73574ff1dfa24ef7400c890'
+         '55b0093730b353b1a2d82cbbc6dba1bd'
+         'ec2e86e0e9397ee767ecdabf281929e2'
+         '8d6129b0bf4e5d8a2cf8efea3d1279bd'
+         '3d6f6eb899531bd0dc16ef519b523221')
