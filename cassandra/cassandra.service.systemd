@@ -4,9 +4,11 @@ After=syslog.target
 
 [Service]
 Type=forking
-PIDFile=/var/run/cassandra.pid
-
-ExecStart=/usr/bin/cassandra -p /var/run/cassandra.pid
+User=cassandra
+PIDFile=/var/run/cassandra/cassandra.pid
+WorkingDirectory=/var/lib/cassandra
+EnvironmentFile=-/etc/conf.d/cassandra
+ExecStart=/usr/bin/cassandra -p /var/run/cassandra/cassandra.pid
 
 [Install]
 WantedBy=multi-user.target
