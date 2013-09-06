@@ -1,12 +1,12 @@
 post_install() {
-	useradd -r -s /bin/sh -d /var/lib/cassandra cassandra
 	mkdir -p /var/{lib,log,run}/cassandra
+	getent passwd cassandra > /dev/null || useradd -r -s /bin/sh -d /var/lib/cassandra cassandra
 	chown cassandra:cassandra /var/{lib,run}/cassandra
 	chown cassandra:log /var/log/cassandra
 }
 
 pre_remove() {
-  /etc/rc.d/cassandra stop
+  systemctl stop cassandra
 }
 
 post_remove() {
