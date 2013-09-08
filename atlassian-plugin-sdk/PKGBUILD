@@ -1,14 +1,13 @@
 # Contributor: Leo von Klenze <leo.vonklenze@tngtech.com> 
 # Contributor: Jochen Schalanda <jochen+aur@schalanda.name> 
 pkgname="atlassian-plugin-sdk"
-pkgver=4.2.5
+pkgver=4.2.9
 pkgrel=1
 pkgdesc="Atlassian Plugin SDK for Developing Plugins for Atlassian Products"
 arch=('i686' 'x86_64')
 url="https://developer.atlassian.com/display/DOCS/Getting+Started"
 license=('Apache License 2.0')
 source=("https://maven.atlassian.com/public/com/atlassian/amps/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-md5sums=('b8cf200dce9ca4d145709894e87a03b7')
 depends=(java-environment)
 
 package()
@@ -30,3 +29,4 @@ package()
 	echo "setenv PATH \${PATH}:/opt/$pkgdir/bin" > $pkgdir/etc/profile.d/atlassian-plugin-sdk.csh
 	chmod +x $pkgdir/etc/profile.d/*
 }
+md5sums=('d2144b144da7f42aedb98d3342ca2a90')
