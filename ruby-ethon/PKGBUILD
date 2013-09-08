@@ -1,6 +1,7 @@
+# Maintainer: Jochen Schalanda <jochen+aur@schalanda.name>
 _gemname=ethon
 pkgname=ruby-$_gemname
-pkgver=0.5.12
+pkgver=0.6.1
 pkgrel=1
 pkgdesc="Libcurl wrapper."
 arch=('any')
@@ -10,7 +11,7 @@ depends=('ruby' 'ruby-ffi>=1.3.0' 'ruby-mime-types>=1.18')
 makedepends=('rubygems')
 source=(http://rubygems.org/downloads/$_gemname-$pkgver.gem)
 noextract=($_gemname-$pkgver.gem)
-md5sums=('928896cb40e8076bba55e7c0905cc98b')
+md5sums=('17c94453928b1f6f7081a528149df84f')
 
 package() {
   cd "$srcdir"
