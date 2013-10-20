@@ -1,2 +1,0 @@
-PUPPET_ARGS=
-PIDFILE=/var/run/puppet.pid

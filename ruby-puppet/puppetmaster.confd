@@ -1,2 +1,0 @@
-PUPPETMASTER_ARGS=
-PIDFILE=/var/run/puppetmaster.pid
