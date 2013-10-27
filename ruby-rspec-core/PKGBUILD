@@ -3,7 +3,7 @@
 # Contributor: eagletmt <eagletmt@gmail.com>
 pkgname=ruby-rspec-core
 _realname=rspec-core
-pkgver=2.14.1
+pkgver=2.14.6
 pkgrel=1
 pkgdesc='RSpec runner and example groups'
 arch=("any")
@@ -21,4 +21,4 @@ package() {
 }
 
 # vim:set ts=2 sw=2 et:
-md5sums=('161bd2cafe60d39e86e3dd3e3722f7d1')
+md5sums=('304b9d5312fca2a114d59f36807a7e7d')
