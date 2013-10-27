@@ -3,7 +3,7 @@
 # Contributor: eagletmt <eagletmt@gmail.com>
 pkgname=ruby-rspec-expectations
 _realname=rspec-expectations
-pkgver=2.14.1
+pkgver=2.14.3
 pkgrel=1
 pkgdesc='RSpec expectations (should[_not] and matchers)'
 arch=("any")
@@ -21,4 +21,4 @@ package() {
 }
 
 # vim:set ts=2 sw=2 et:
-md5sums=('43f0315ff63c457fd76b09c532a2d083')
+md5sums=('0f75b282907e0f5994d794f94c0067cd')
