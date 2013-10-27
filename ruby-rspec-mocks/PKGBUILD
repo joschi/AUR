@@ -3,7 +3,7 @@
 # Contributor: eagletmt <eagletmt@gmail.com>
 pkgname=ruby-rspec-mocks
 _realname=rspec-mocks
-pkgver=2.14.1
+pkgver=2.14.4
 pkgrel=1
 pkgdesc="RSpec's 'test double' framework, with support for stubbing and mocking"
 arch=("any")
@@ -21,4 +21,4 @@ package() {
 }
 
 # vim:set ts=2 sw=2 et:
-md5sums=('b2d9bebce53a30b0ea29a414d9df9612')
+md5sums=('38a8052113102c5aec2b6a73358dc614')
