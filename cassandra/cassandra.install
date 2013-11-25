@@ -3,12 +3,19 @@ post_install() {
 	getent passwd cassandra > /dev/null || useradd -r -s /bin/sh -d /var/lib/cassandra cassandra
 	chown cassandra:cassandra /var/{lib,run}/cassandra
 	chown cassandra:log /var/log/cassandra
+
+	echo 'WARNING: data in /var/lib/cassandra written by Cassandra 1.x is NOT compatible with Cassandra 2.x'
+	echo 'If you have such data, please remove it or install a previous version of Cassandra.'
+}
+
+post_upgrade() {
+	post_install
 }
 
 pre_remove() {
-  systemctl stop cassandra
+	systemctl stop cassandra
 }
 
 post_remove() {
-  userdel cassandra
+	userdel cassandra
 }

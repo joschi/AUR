@@ -4,22 +4,15 @@
 # Contributor: Alper Kanat <alperkanat@raptiye.org>
 # Contributor: Jochen Schalanda <jochen+aur@schalanda.name>
 
-# check() function is used to verify GPG signature. check() imports 3 keys into your GPG keyring at first build.
-# See http://scarybeastsecurity.blogspot.com/2011/07/alert-vsftpd-download-backdoored.html for reason of this step.
-# If you have problems with gpg, you can remove check() function, and all will be ok.
-
 pkgname=cassandra
-pkgver=2.0.0
+pkgver=2.0.3
 pkgrel=1
 pkgdesc='NoSQL database (precompiled version)'
 arch=('any')
 url='http://cassandra.apache.org/'
 license=('APACHE')
 depends=('java-runtime')
-makedepends=('gnupg')
-checkdepends=('wget')
 optdepends=('python: to use Python CLI administration scripts')
-conflicts=('dsc-cassandra')
 backup=(etc/cassandra/cassandra-env.sh
         etc/cassandra/cassandra-rackdc.properties
         etc/cassandra/cassandra-topology.properties
@@ -27,44 +20,26 @@ backup=(etc/cassandra/cassandra-env.sh
         etc/cassandra/commitlog_archiving.properties
         etc/cassandra/log4j-server.properties
         etc/cassandra/log4j-tools.properties)
-_url_tgz="http://archive.apache.org/dist/${pkgname}/${pkgver}/apache-${pkgname}-${pkgver}-bin.tar.gz"
 install="${pkgname}.install"
-source=("${_url_tgz}"
-        "${pkgname}.service.systemd"
-        "${pkgname}.install"
+source=("http://mirror.netcologne.de/apache.org/${pkgname}/${pkgver}/apache-${pkgname}-${pkgver}-bin.tar.gz"
         '01_fix_cassandra_home_path.patch'
-        '02_fix_jvm_opts_for_jre7.patch')
+        "${pkgname}.service.systemd"
+        "${pkgname}.install")
 
 build() {
   cd ${srcdir}/apache-cassandra-${pkgver}
 
-  # https://issues.apache.org/jira/browse/CASSANDRA-4275
-  for p in 01_fix_cassandra_home_path 02_fix_jvm_opts_for_jre7;
+  for p in 01_fix_cassandra_home_path
   do
     patch -p0 < ${srcdir}/${p}.patch
   done
 }
 
-## to check gpg signature
-check() {
-  msg "Checking GPG signature..."
-  msg2 "(To disable gpg-check: build with '--nocheck')"
-  gpg --list-keys | grep 'sylvain@datastax.com' || {
-    _url_keys='https://www.apache.org/dist/cassandra/KEYS'
-    msg "No maintainers' GPG keys found. Importing from ${_url_keys} ..."
-    wget --quiet -O - ${_url_keys} | gpg --import -
-  }
-  # no need to add signature to package dependences
-  echo "${_url_tgz}.asc"
-  wget --quiet -O - "${_url_tgz}.asc" | gpg --verify - "apache-${pkgname}-${pkgver}-bin.tar.gz"
-  msg2 "Detached GPG signature is valid."
-}
-
 package() {
   cd ${srcdir}/apache-cassandra-${pkgver}
 
-  mkdir -p ${pkgdir}/{usr/bin,etc/cassandra}
-  mkdir -p ${pkgdir}/{usr/bin,usr/share/cassandra,usr/share/java/cassandra}
+  mkdir -p ${pkgdir}/etc/cassandra
+  mkdir -p ${pkgdir}/usr/{bin,share/cassandra,share/java/cassandra}
 
   cp -a interface pylib tools ${pkgdir}/usr/share/cassandra/
 
@@ -86,8 +61,7 @@ package() {
   install -Dm644 ${srcdir}/cassandra.service.systemd \
                  ${pkgdir}/lib/systemd/system/cassandra.service
 }
-md5sums=('0be04e604f63bac251aa1aabfa477c66'
-         'a528a268e681b621e34ccdf019243c9f'
-         'ec2e86e0e9397ee767ecdabf281929e2'
+md5sums=('98d266fa0b84b50971e87f0c905bf2df'
          '8d6129b0bf4e5d8a2cf8efea3d1279bd'
-         '3d6f6eb899531bd0dc16ef519b523221')
+         '3188c59c5355c591e001fc4d18c5bb6e'
+         '638f2f0fd09293b67e5b3fe5c8e1a243')
