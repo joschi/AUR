@@ -1,6 +1,6 @@
 # Maintainer: Jochen Schalanda <jochen+aur@schalanda.name>
 _gemname=savon
-pkgname="ruby-${_gemname}"
+pkgname="ruby-${_gemname}-2.2"
 pkgver=2.2.0
 pkgrel=1
 pkgdesc='Heavy metal SOAP client (2.2 series)'
