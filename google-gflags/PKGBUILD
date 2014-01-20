@@ -14,9 +14,13 @@ source=(http://gflags.googlecode.com/files/gflags-${pkgver}.tar.gz)
 md5sums=('e02268c1e90876c809ec0ffa095da864')
 
 build() {
-  cd ${startdir}/src/gflags-${pkgver}
+  cd "${srcdir}/gflags-${pkgver}"
 
   ./configure --prefix=/usr || return 1
   make || return 1
+}
+
+package() {
+  cd "${srcdir}/gflags-${pkgver}"
   make DESTDIR=${pkgdir} install || return 1
 }
