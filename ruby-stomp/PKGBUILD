@@ -8,7 +8,6 @@ arch=(any)
 url="http://stomp.codehaus.org/"
 license=("GPL")
 depends=('ruby')
-makedepends=('rubygems')
 source=(https://rubygems.org/downloads/$_gemname-$pkgver.gem)
 noextract=($_gemname-$pkgver.gem)
 

@@ -6,9 +6,8 @@ pkgrel=1
 pkgdesc="Makes http fun! Also, makes consuming restful web services dead easy."
 arch=('any')
 url="http://httparty.rubyforge.org/"
-license=('')
+license=('MIT')
 depends=('ruby' 'ruby-multi_json>=1.0' 'ruby-multi_xml>=0')
-makedepends=('rubygems')
 source=(http://rubygems.org/downloads/$_gemname-$pkgver.gem)
 noextract=($_gemname-$pkgver.gem)
 
