@@ -3,7 +3,7 @@
 # Contributor: Benedikt 'linopolus' Mueller <benemue at googlemail dot com>
 
 pkgname=mediathek
-pkgver=5
+pkgver=6
 pkgrel=1
 pkgdesc="Offers access to the Mediathek of different tv stations (ARD, ZDF, Arte, etc.)"
 arch=(any)
@@ -17,9 +17,9 @@ options=(!strip !zipman)
 source=(http://downloads.sourceforge.net/zdfmediathk/MediathekView_${pkgver}.zip
         $pkgname
         $pkgname.desktop)
-md5sums=('5b6f1e051d26123f019c98ae91af9993'
-         'e52a61eabb6a5931dc2a1fe261bc7d95'
-         'bad6e1fdc948ac0e41b8535509cf944d')
+sha256sums=('422dcbc021d5b227b4882dafbdfa97bd60e4816e1c6111a0cebe4a069fc13659'
+            '3367f3076966910f53f21d9fbb904afdd887c560ddef2e53e2d9a28ae08c542f'
+            'c98a6e86990dc8d4054f1975e836fc470ad6115042327154b93f06d39d588ded')
 
 package() {
   install -d $pkgdir/{opt/$pkgname/{lib,bin},usr/{bin,share/{{doc,licenses}/$pkgname,applications,pixmaps}}}
