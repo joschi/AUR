@@ -1,7 +1,7 @@
 # Mantainer: M0Rf30
 pkgname=jdk7-docs
 _major=7
-_minor=51
+_minor=55
 _build=b13
 pkgver=${_major}.${_minor}
 pkgrel=1
@@ -19,4 +19,4 @@ package(){
   cp -rf * "$pkgdir/usr/share/doc/java7" 
 }
 
-md5sums=('defc7e96517cfd81d88c31e41698354b')
+sha256sums=('f5c5a7cc33c45e5b7442076465c5a934bf44d006cdfcff080d7ed00bdf5845e4')
