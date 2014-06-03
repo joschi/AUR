@@ -69,11 +69,11 @@ package() {
   
   mkdir -p "${destdir}"
   mkdir -p "${destdir}"/usr/share
-  mkdir -p "${destdir}"/etc/{.java/.systemPrefs}
   mkdir -p "${destdir}"/usr/lib/mozilla/plugins
   mkdir -p "${destdir}"/etc/profile.d
   mkdir -p "${destdir}"/etc/rc.d
   mkdir -p "${destdir}"/etc/conf.d
+  mkdir -p "${destdir}"/etc/.java/.systemPrefs
   mkdir -p "${destdir}"/usr/share/applications
   mkdir -p "${pkgdir}"/usr/share/licenses/"${pkgname}"
 
