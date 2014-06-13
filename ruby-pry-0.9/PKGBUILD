@@ -20,8 +20,10 @@ sha256sums=('0107730b35bdd4fd042fa9c92263174a38f975844230bc5c583fd4816c55af72')
 
 package() {
   local _gemdir="$(ruby -e'puts Gem.default_dir')"
+  local _bindir="$(ruby -e'puts Gem.bindir')"
   gem install --ignore-dependencies --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir/usr/bin" $_gemname-$pkgver.gem
   rm "$pkgdir/$_gemdir/cache/$_gemname-$pkgver.gem"
+  mv "$pkgdir/$_bindir/pry" "$pkgdir/$_bindir/pry-0.9"
   install -D -m644 "$pkgdir/$_gemdir/gems/$_gemname-$pkgver/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
 
