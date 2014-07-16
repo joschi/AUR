@@ -1,8 +1,8 @@
 # Mantainer: M0Rf30
 pkgname=jdk7-docs
 _major=7
-_minor=60
-_build=b19
+_minor=65
+_build=b17
 pkgver=${_major}.${_minor}
 pkgrel=1
 pkgdesc='Java SE Development Kit Documentation 7'
@@ -12,11 +12,10 @@ license=('custom')
 options=('docs' '!strip')
 source=("http://download.oracle.com/otn-pub/java/jdk/7u${_minor}-${_build}/jdk-7u${_minor}-apidocs.zip")
 conflicts=('jdk-docs')
+sha256sums=('713055f8664bce97467589b3dc22160dc304cacc6724083e85b0d1f7b087c1a0')
 
 package(){
   cd "$srcdir/docs"
   mkdir -p "$pkgdir/usr/share/doc/java7" 
   cp -rf * "$pkgdir/usr/share/doc/java7" 
 }
-
-sha256sums=('6dffd325e1d1f28cda64a84c42adad14f1bfc8220471494dac14badf275cdb88')
