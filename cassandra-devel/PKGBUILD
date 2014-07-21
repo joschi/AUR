@@ -5,11 +5,11 @@
 # If you have problems with gpg, you can remove check() function, and all will be ok.
 
 _pkgname=cassandra
-pkgname=$_pkgname-beta
+pkgname=$_pkgname-devel
 _pkgver=2.1.0
-pkgver=${_pkgver}_beta2
+pkgver=${_pkgver}_rc4
 pkgrel=1
-pkgdesc='NoSQL database (precompiled version)'
+pkgdesc='Apache Cassandra NoSQL database (development version)'
 arch=('any')
 url='http://cassandra.apache.org/'
 license=('APACHE')
@@ -32,7 +32,7 @@ source=(${_url_tgz}
         01_fix_cassandra_home_path.patch
         cassandra.install
         systemd_cassandra.service)
-sha256sums=('e27ec6118202245fbaafea5328d031cb8a777bf1da76abf84709ea2dea1e4e98'
+sha256sums=('cdd4c6c967083ce1547db4dce9bb16af0fa0ed06b5c58bf27fab002e954845c4'
             'bbb5dcc19cac4e19c506210da901280c3063a6a241480bf12bc874e6a5c02657'
             'e74b3c6568ad7858966de7671334d8a1539e43b81737b8a12011dbd84526b9f2'
             '8cc75f282436fbd0ee533b175749c04e19e137a26131b22b1f39a9ee5869e60e')
@@ -54,7 +54,7 @@ check() {
   }
   # no need to add signature to package dependences
   echo "${_url_tgz}.asc"
-  wget --quiet -O - "${_url_tgz}.asc" | gpg --verify - "apache-${pkgname}-${pkgver/_/-}-bin.tar.gz"
+  wget --quiet -O - "${_url_tgz}.asc" | gpg --verify - "apache-${_pkgname}-${pkgver/_/-}-bin.tar.gz"
   msg2 "Detached GPG signature is valid."
 }
 
