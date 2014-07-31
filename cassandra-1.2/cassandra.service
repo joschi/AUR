@@ -1,5 +1,5 @@
 [Unit]
-Description=Apache Cassandra NoSQL database
+Description=Cassandra NoSQL database
 After=network.target
 
 [Service]
@@ -10,8 +10,8 @@ LimitNOFILE=100000
 LimitNPROC=32768
 LimitAS=infinity
 PIDFile=/var/run/cassandra/cassandra.pid
-WorkingDirectory=/var/lib/cassandra
 ExecStart=/usr/bin/cassandra -p /var/run/cassandra/cassandra.pid
+WorkingDirectory=/var/lib/cassandra
 
 [Install]
 WantedBy=multi-user.target
