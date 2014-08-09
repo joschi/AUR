@@ -1,7 +1,7 @@
 # Maintainer: Jochen Schalanda <jochen+aur@schalanda.name>
 _gemname=travis
 pkgname=ruby-$_gemname
-pkgver=1.7.0
+pkgver=1.7.1
 pkgrel=1
 pkgdesc='Travis CI Client (CLI and Ruby library)'
 arch=(any)
@@ -21,7 +21,7 @@ depends=(
   'ruby-addressable>=2.3')
 noextract=($_gemname-$pkgver.gem)
 source=(https://rubygems.org/downloads/$_gemname-$pkgver.gem)
-sha256sums=('1238e682754cdad5fd7418c1b367add8fff2dce497cc685c3b4329533adf86b7')
+sha256sums=('aed5384b546d64b600afb57ef5aac388735ea805c5080d576ef7fcf99d541dc0')
 
 package() {
   cd "$srcdir"
