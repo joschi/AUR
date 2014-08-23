@@ -3,7 +3,7 @@
 # Contributor: eagletmt <eagletmt@gmail.com>
 _gemname=rspec-mocks
 pkgname=ruby-${_gemname}
-pkgver=3.0.3
+pkgver=3.0.4
 pkgrel=1
 pkgdesc="RSpec's 'test double' framework, with support for stubbing and mocking"
 arch=('any')
@@ -12,7 +12,7 @@ license=('MIT')
 depends=('ruby' "ruby-rspec-support>=${pkgver}")
 noextract=("$_gemname-$pkgver.gem")
 source=("http://rubygems.org/downloads/$_gemname-$pkgver.gem")
-sha256sums=('46d260374bfed51a3e4ffa029d80649f39c83be1fd6421ab8a889389302f6c6b')
+sha256sums=('d219c26621069464469cf2571eab9353a0d44bdf415ed2164287e5921a1a5053')
 
 package() {
   cd "$srcdir"
