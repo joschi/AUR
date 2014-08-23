@@ -3,7 +3,7 @@
 # Contributor: eagletmt <eagletmt@gmail.com>
 _gemname=rspec-expectations
 pkgname=ruby-${_gemname}
-pkgver=3.0.3
+pkgver=3.0.4
 pkgrel=1
 pkgdesc='RSpec expectations (should[_not] and matchers)'
 arch=('any')
@@ -14,7 +14,7 @@ depends=('ruby'
   "ruby-diff-lcs>=1.2.0" "ruby-diff-lcs<2.0")
 noextract=("$_gemname-$pkgver.gem")
 source=("https://rubygems.org/downloads/$_gemname-$pkgver.gem")
-sha256sums=('c0c29991afab4b92b2db094719d0ef3df3ead38a6d36d31146c2e393cb1ef7d7')
+sha256sums=('2282c8289a6edec4ee8724ece3a0287c8ec2572413f2c663a2e1924bfb2123cd')
 
 package() {
   cd "$srcdir"
