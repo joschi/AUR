@@ -3,7 +3,7 @@
 # Contributor: eagletmt <eagletmt@gmail.com>
 _gemname=rspec-core
 pkgname=ruby-${_gemname}
-pkgver=3.0.3
+pkgver=3.0.4
 pkgrel=1
 pkgdesc='RSpec runner and example groups'
 arch=('any')
@@ -12,7 +12,7 @@ license=('MIT')
 depends=('ruby' "ruby-rspec-support>=${pkgver}")
 noextract=("$_gemname-$pkgver.gem")
 source=("https://rubygems.org/downloads/$_gemname-$pkgver.gem")
-sha256sums=('f5246fcdfd1c979229eca051ffef8c0fa450f74fa4f43a2a3f08aeeb72a9250d')
+sha256sums=('1f91e70e8d666ceeee8d3483e264337b6ae5bd387a795bf841581f5426c27ebf')
 
 package() {
   cd "$srcdir"
