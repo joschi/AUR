@@ -3,7 +3,7 @@
 # Contributor: eagletmt <eagletmt@gmail.com>
 _gemname=rspec-support
 pkgname=ruby-${_gemname}
-pkgver=3.0.3
+pkgver=3.0.4
 pkgrel=1
 pkgdesc='Common code needed by the other RSpec gems.'
 arch=('any')
@@ -12,7 +12,7 @@ license=('MIT')
 depends=('ruby')
 noextract=("$_gemname-$pkgver.gem")
 source=("https://rubygems.org/downloads/$_gemname-$pkgver.gem")
-sha256sums=('9424c836d1c4ef52869d18f85a2d4cd8b362cc63b8e9c2f0a873b11109fb9d1a')
+sha256sums=('ec2547c2ebbe2ddbd8722136939f9afe1c4fd24a0d3fd5f35877f6c22c4ff285')
 
 package() {
   cd "$srcdir"
