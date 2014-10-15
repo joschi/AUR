@@ -1,6 +1,6 @@
 [Desktop Entry]
-Exec=policytool
-Icon=sun-java.png
+Exec=/usr/lib/jvm/java-7-jre/jre/bin/policytool
+Icon=sun-java-jre7
 Name=Java Policy Settings
 StartupNotify=true
 Terminal=false
