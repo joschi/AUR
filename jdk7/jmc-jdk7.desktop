@@ -1,6 +1,6 @@
 [Desktop Entry]
-Exec=jmc
-Icon=sun-java
+Exec=/usr/lib/jvm/java-7-jdk/bin/jmc
+Icon=sun-java-jdk7
 Name=Java Mission Control
 StartupNotify=true
 Terminal=false

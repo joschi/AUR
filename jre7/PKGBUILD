@@ -2,8 +2,8 @@
 # Contributors: Det, Charles Ghislain, Guillaume ALAUX, Daniel J Griffiths, Jason Chu, Geoffroy Carrier, Army, kfgz, Thomas Dziedzic, Dan Serban, jjacky, EasySly
 pkgname=jre7
 _major=7
-_minor=67
-_build=b01
+_minor=72
+_build=b12
 _pkg=${_major}u$_minor
 pkgver=$_major.$_minor
 pkgrel=1
