@@ -1,7 +1,7 @@
 # Contributor: Leo von Klenze <leo.vonklenze@tngtech.com> 
 # Contributor: Jochen Schalanda <jochen+aur@schalanda.name> 
 pkgname="atlassian-plugin-sdk"
-pkgver=4.2.10
+pkgver=5.0.13
 pkgrel=1
 pkgdesc="Atlassian Plugin SDK for Developing Plugins for Atlassian Products"
 arch=('i686' 'x86_64')
@@ -21,7 +21,7 @@ package()
 
 	# Add executable flag to scripts
 	chmod +x $pkgdir/opt/$pkgname/bin/*
-	chmod +x $pkgdir/opt/$pkgname/apache-maven/bin/{mvn,mvnDebug}
+	chmod +x $pkgdir/opt/$pkgname/apache-maven-3.2.1/bin/{mvn,mvnDebug}
 
 	# update PATH
 	mkdir -p $pkgdir/etc/profile.d
@@ -29,4 +29,4 @@ package()
 	echo "setenv PATH \${PATH}:/opt/$pkgdir/bin" > $pkgdir/etc/profile.d/atlassian-plugin-sdk.csh
 	chmod +x $pkgdir/etc/profile.d/*
 }
-md5sums=('636f26607dccb3b03fa3b3409c399d8e')
+md5sums=('b1681e60e2d75a2511f005dd7e91a323')
